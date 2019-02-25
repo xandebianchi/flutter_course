@@ -21,6 +21,9 @@ class Products extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('[Products Widget] build()');
+    Widget productCard = Center(
+      child: Text('No Products found, please add some'),
+    );
     return products.length > 0
         ? ListView.builder(
             itemBuilder: _buildProductItem,
