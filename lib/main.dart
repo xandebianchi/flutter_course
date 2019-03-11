@@ -15,9 +15,9 @@ void main() {
 
 class MyApp extends StatefulWidget {
   @override
-    State<StatefulWidget> createState() {
-      return _MyAppState();
-    }
+  State<StatefulWidget> createState() {
+    return _MyAppState();
+  }
 }
 
 class _MyAppState extends State<MyApp> {
@@ -45,7 +45,8 @@ class _MyAppState extends State<MyApp> {
           accentColor: Colors.deepPurple),
       //home: AuthPage(),
       routes: {
-        '/': (BuildContext context) => ProductsPage(_products, _addProduct, _deleteProduct),
+        '/': (BuildContext context) =>
+            ProductsPage(_products, _addProduct, _deleteProduct),
         '/admin': (BuildContext context) => ProductAdminPage(),
       },
       onGenerateRoute: (RouteSettings settings) {
@@ -53,15 +54,20 @@ class _MyAppState extends State<MyApp> {
         if (pathElements[0] != '') {
           return null;
         }
-        if (pathElements[0] == 'product') {
+        if (pathElements[1] == 'product') {
           final int index = int.parse(pathElements[2]);
 
-          return MaterialPageRoute(
-                          builder: (BuildContext context) => ProductPage(
-                              _products[index]['title'], _products[index]['image']),
-                        );
+          return MaterialPageRoute<bool>(
+            builder: (BuildContext context) => ProductPage(
+                _products[index]['title'], _products[index]['image']),
+          );
         }
         return null;
+      },
+      onUnknownRoute: (RouteSettings settings) {
+        return MaterialPageRoute(
+            builder: (BuildContext context) =>
+                ProductsPage(_products, _addProduct, _deleteProduct));
       },
     );
   }
